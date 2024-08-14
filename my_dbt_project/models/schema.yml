@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: transform_intra_day
+    description: "This model transforms intraday stock data from raw format into a more usable structure by renaming columns and filtering out any rows where the opening price is null."
+    columns:
+      - name: timestamp
+        description: "The exact time when the stock price was recorded."
+        tests:
+          - not_null
+      - name: open
+        description: "The opening price of the stock at the given timestamp."
+        tests:
+          - not_null
+      - name: high
+        description: "The highest price of the stock at the given timestamp."
+      - name: low
+        description: "The lowest price of the stock at the given timestamp."
+      - name: close
+        description: "The closing price of the stock at the given timestamp."
+        tests:
+          - not_null
+      - name: volume
+        description: "The total volume of stock traded at the given timestamp."
+
+  - name: aggregate_intra_day
+    description: "This model aggregates the intraday stock data into daily averages and sums, providing a daily summary of the stock's performance."
+    columns:
+      - name: day
+        description: "The day for which the stock data is aggregated."
+        tests:
+          - not_null
+      - name: avg_open
+        description: "The average opening price of the stock for the day."
+      - name: avg_high
+        description: "The average highest price of the stock for the day."
+      - name: avg_low
+        description: "The average lowest price of the stock for the day."
+      - name: avg_close
+        description: "The average closing price of the stock for the day."
+        tests:
+          - not_null
+      - name: total_volume
+        description: "The total volume of stock traded for the day."
